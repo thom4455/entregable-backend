@@ -3,7 +3,7 @@ import { body, param, validationResult } from "express-validator";
 import ProductManager from "../fileManager/productManager.js";
 
 const router = Router();
-const productManager = new ProductManager(); // Instancia del administrador de productos
+const productManager = new ProductManager("products.json"); // Instancia del administrador de productos
 
 const handleValidationErrors = (req, res, next) => {
   const errors = validationResult(req);

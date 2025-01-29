@@ -1,8 +1,28 @@
-import fs from "fs/promises";
+import * as fs from "fs";
+import { dirname, join } from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 class ProductManager {
-  constructor() {
-    this.filePath = "../data/products.json";
+  constructor(filename) {
+    this.path = join(__dirname, "../data", filename);
+  }
+
+  async getProducts() {
+    try {
+      if (fs.existsSync(this.path)) {
+        const data = await fs.promises.readFile(this.path, "utf-8");
+        return JSON.parse(data);
+      } else {
+        console.log("Archivo no encontrado");
+        return [];
+      }
+    } catch (error) {
+      console.log("Error al leer productos:", error);
+      return [];
+    }
   }
 
   //Almacenar el producto en el json
@@ -29,19 +49,6 @@ class ProductManager {
   }
 
   //Obtener productos del json
-  async getProducts() {
-    try {
-      const data = await fs.readFile(this.filePath, "utf-8");
-      return JSON.parse(data) || [];
-    } catch (error) {
-      if (error.code === "ENOENT") {
-        return [];
-      } else {
-        console.error("Error al leer products:", error);
-        throw error;
-      }
-    }
-  }
 
   //Obtener producto por id del json
   async getProductById(id) {

@@ -1,8 +1,13 @@
-import fs from "fs";
+import * as fs from "fs";
+import { dirname, join } from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 class cartManager {
-  constructor() {
-    this.filePath = "./carritos.json";
+  constructor(filename) {
+    this.filepath = join(__dirname, "../data", filename);
   }
 
   //Almacenar el carrito en el json

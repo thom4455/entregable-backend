@@ -1,4 +1,5 @@
 import * as fs from "fs";
+import { writeFile } from "fs/promises";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 
@@ -38,7 +39,9 @@ class ProductManager {
       }
 
       products.push(newProduct);
-      await fs.writeFile(this.filePath, JSON.stringify(products, null, 2));
+
+      // Usa writeFile de fs/promises
+      await writeFile(this.path, JSON.stringify(products, null, 2));
 
       console.log("Producto creado exitosamente.");
       return newProduct;
@@ -47,8 +50,6 @@ class ProductManager {
       throw error;
     }
   }
-
-  //Obtener productos del json
 
   //Obtener producto por id del json
   async getProductById(id) {

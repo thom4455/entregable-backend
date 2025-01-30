@@ -84,6 +84,7 @@ router.post(
   async (req, res) => {
     const productData = req.body;
     try {
+      console.log("intentando ejecutar createProduct " + productData);
       const newProduct = await productManager.createProduct(productData);
       res.status(201).json({
         message: "Producto creado exitosamente.",

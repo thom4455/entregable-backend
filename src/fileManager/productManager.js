@@ -88,16 +88,27 @@ class ProductManager {
     };
   }
 
+  async saveProducts(products) {
+    try {
+      await writeFile(this.path, JSON.stringify(products, null, 2));
+      console.log("Productos guardados exitosamente.");
+    } catch (error) {
+      console.error("Error al guardar los productos:", error);
+      throw new Error("No se pudo guardar la lista de productos.");
+    }
+  }
+
   //Actualizar producto en el json
   async updateProduct(id, updatedData) {
     const products = await this.getProducts();
     const index = products.findIndex((product) => product.id === id);
+
     if (index === -1) return null;
 
     delete updatedData.id;
-
     products[index] = { ...products[index], ...updatedData };
     await this.saveProducts(products);
+
     return products[index];
   }
 
@@ -107,7 +118,7 @@ class ProductManager {
     const index = products.findIndex((product) => product.id === id);
     if (index === -1) return false;
 
-    products.splice(index, 1); // Elimina el producto del array
+    products.splice(index, 1);
     await this.saveProducts(products);
     return true;
   }

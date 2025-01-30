@@ -1,23 +1,23 @@
 [
   {
     "id": 1,
-    "title": "Producto de prueba",
-    "description": "Este es un producto de prueba",
-    "code": "TEST123",
-    "price": 100,
+    "title": "Producto actualizado",
+    "description": "Descripción del producto actualizado",
+    "code": "NEW1239",
+    "price": 200,
     "status": true,
-    "stock": 10,
-    "category": "general",
+    "stock": 15,
+    "category": "categoría nueva",
     "thumbnails": [
-      "imagen1.jpg",
-      "imagen2.jpg"
+      "img1.jpg",
+      "img2.jpg"
     ]
   },
   {
     "id": 2,
-    "title": "Producto nuevo",
-    "description": "Descripción del producto",
-    "code": "NEW1239",
+    "title": " actualizado",
+    "description": "Descripción del producto nuevo",
+    "code": "NEW9",
     "price": 200,
     "status": true,
     "stock": 15,

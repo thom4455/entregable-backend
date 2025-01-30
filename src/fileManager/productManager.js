@@ -40,7 +40,6 @@ class ProductManager {
 
       products.push(newProduct);
 
-      // Usa writeFile de fs/promises
       await writeFile(this.path, JSON.stringify(products, null, 2));
 
       console.log("Producto creado exitosamente.");

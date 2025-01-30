@@ -1,4 +1,4 @@
-import * as fs from "fs";
+import { readFile, writeFile } from "fs/promises";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 
@@ -7,19 +7,20 @@ const __dirname = dirname(__filename);
 
 class cartManager {
   constructor(filename) {
-    this.filepath = join(__dirname, "../data", filename);
+    this.filePath = join(__dirname, "../data", filename);
   }
 
   //Almacenar el carrito en el json
   async createCart() {
     try {
       const carts = await this.getCarts();
+      console.log("llego aca?");
       const newCart = {
         id: carts.length > 0 ? carts[carts.length - 1].id + 1 : 1,
         products: [],
       };
       carts.push(newCart);
-      await fs.writeFile(this.filePath, JSON.stringify(carts, null, 2));
+      await writeFile(this.filePath, JSON.stringify(carts, null, 2));
       return newCart;
     } catch (error) {
       console.log("Error al crear el carrito:", error);
@@ -30,7 +31,7 @@ class cartManager {
   //obtener un carrito del json
   async getCarts() {
     try {
-      const data = await fs.readFile(this.filePath, "utf-8");
+      const data = await readFile(this.filePath, "utf-8");
       return JSON.parse(data) || [];
     } catch (error) {
       console.log("Error al leer los carritos:", error);
@@ -67,8 +68,7 @@ class cartManager {
       } else {
         cart.products.push({ product: productId, quantity: 1 });
       }
-
-      await fs.writeFile(this.filePath, JSON.stringify(carts, null, 2));
+      await writeFile(this.filePath, JSON.stringify(carts, null, 2));
       return cart;
     } catch (error) {
       console.log("Error al agregar el producto al carrito:", error);
